@@ -1,0 +1,8 @@
+name: fastq-dump
+channels:
+  - bioconda
+  - defaults
+dependencies:
+  - sra-tools=2.8.0=0
+prefix: /workspace/miniconda3/envs/fastq-dump
+

@@ -1,0 +1,9 @@
+samples:
+    EV1:
+        SRR1916129
+    3bstrain1:
+        SRR1916134
+    set1rep1:
+        SRR1916142
+genome_release:
+    93
