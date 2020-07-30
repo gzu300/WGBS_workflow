@@ -1,0 +1,38 @@
+name: bismark
+channels:
+  - bioconda
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - bismark=0.22.3=0
+  - bowtie2=2.3.5.1=py37he513fc3_0
+  - bzip2=1.0.8=h7b6447c_0
+  - ca-certificates=2020.6.24=0
+  - certifi=2020.6.20=py37_0
+  - curl=7.71.1=hbc83047_1
+  - hisat2=2.1.0=py37hc9558a2_4
+  - krb5=1.18.2=h173b8e3_0
+  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - libcurl=7.71.1=h20c2e04_1
+  - libedit=3.1.20191231=h14c3975_1
+  - libffi=3.3=he6710b0_2
+  - libgcc=7.2.0=h69d50b8_2
+  - libgcc-ng=9.1.0=hdf63c60_0
+  - libssh2=1.9.0=h1ba5d50_1
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - ncurses=6.2=he6710b0_1
+  - openssl=1.1.1g=h7b6447c_0
+  - perl=5.26.2=h14c3975_0
+  - pip=20.1.1=py37_1
+  - python=3.7.7=hcff3b4d_5
+  - readline=8.0=h7b6447c_0
+  - samtools=1.7=1
+  - setuptools=49.2.0=py37_0
+  - sqlite=3.32.3=h62c20be_0
+  - tbb=2020.0=hfd86e86_0
+  - tk=8.6.10=hbc83047_0
+  - wheel=0.34.2=py37_0
+  - xz=5.2.5=h7b6447c_0
+  - zlib=1.2.11=h7b6447c_3
+prefix: /workspace/miniconda3/envs/bismark
+

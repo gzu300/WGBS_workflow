@@ -7,3 +7,5 @@ samples:
         SRR1916142
 genome_release:
     93
+trimmed_length:
+    75
