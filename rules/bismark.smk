@@ -10,7 +10,7 @@ rule build:
 
 rule bismark:
     input:
-        fq = 'data/{sample}_trimmed.fq',
+        fq = 'data/trimmed/{sample}_trimmed.fq',
         genome_folder = 'data/ref/'
     output:
         'data/bismark/{sample}_trimmed_bismark_bt2.bam'

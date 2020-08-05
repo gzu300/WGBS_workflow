@@ -1,11 +1,15 @@
+output_path = 'data/trimmed/{sample}_trimmed.fq'
+
+
 rule trim_galore:
     input:
         'data/{sample}/{sample}.fastq'
     output:
-        'data/{sample}_trimmed.fq'
+        output_path
     conda:
         '../env/trim_galore.yaml'
     params:
-        length = config['trimmed_length']
+        length = config['trimmed_length'],
+        output_dir = os.path.dirname(output_path)
     shell:
-        'trim_galore --length {params.length} {input} -o data'
+        'trim_galore --length {params.length} {input} -o {params.output_dir}'

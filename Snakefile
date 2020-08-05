@@ -2,7 +2,7 @@ configfile: 'config.yaml'
 
 rule all:
     input:
-        expand('data/bismark/{sample}_trimmed_bismark_bt2.bam', sample=config['samples']),
+        expand('data/sorted_index/{sample}_sorted.bam.bai', sample=config['samples']),
         'data/ref/ref_genome.fa',
         'data/ref/annotation.gtf'
 
@@ -27,3 +27,5 @@ include: 'rules/sra2fq.smk'
 include: 'rules/download_ref.smk'
 include: 'rules/trim_galore.smk'
 include: 'rules/bismark.smk'
+include: 'rules/deduplicate.smk'
+include: 'rules/sorted.smk'
