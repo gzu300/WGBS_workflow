@@ -6,5 +6,5 @@ rule sort:
         'data/sorted_index/{sample}_sorted.bam.bai'
     conda: '../env/samtools.yaml'
     shell:
-        'samtools sort -o {output[0]} {input};'
+        'samtools sort -o {output[0]} {input} && '
         'samtools index {output[0]}'
