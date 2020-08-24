@@ -5,6 +5,8 @@ samples:
         SRR1916134
     set1rep1:
         SRR1916142
+    by4741:
+        SRR1916140
 genome_release:
     93
 trimmed_length:
