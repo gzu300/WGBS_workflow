@@ -2,11 +2,10 @@ configfile: 'config.yaml'
     
 rule all:
     input:
-        expand('data/sorted_index/{sample}_sorted.bam.bai', sample=config['samples']),
+        expand('data/bismark_report/meth_info_{sample}.CpG_report.txt', sample=config['samples']),
         'data/ref/ref_genome.fa',
         'data/ref/annotation.gtf',
-        'data/output/methylationStats.pdf'
-
+		'data/output/methylationStats.pdf'
 
 rule download:
     output:
@@ -31,5 +30,5 @@ include: 'rules/trim_galore.smk'
 include: 'rules/bismark.smk'
 include: 'rules/deduplicate.smk'
 include: 'rules/sorted.smk'
+include: 'rules/bismark_convertor.smk'
 include: 'rules/analysis.smk'
-include: 'rules/bismark_stats.smk'

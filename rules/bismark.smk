@@ -19,11 +19,3 @@ rule bismark:
     log: '../log/{sample}_bismark.log'
     shell:
         'bismark {input.genome_folder} {input.fq} -o data/bismark/ 2>{log}'
-
-rule bismark_convert:
-    input:
-    output:
-    conda:
-	'../env/bismark.yaml'
-    shell:
-	''
