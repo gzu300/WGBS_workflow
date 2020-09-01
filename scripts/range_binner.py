@@ -1,13 +1,11 @@
 #!/usr/bin/env python 
+'''
+put meth coordinates into bins.
+'''
 import pdb
 import pandas as pd
 import statistics as stats
 import argparse
-
-'''
-put meth coordinates into bins.
-'''
-BIN_NUM = 20
 
 def parse_gtf_to_dict(gtf_iter):
     #print(each_line.split())
@@ -26,13 +24,9 @@ def bin_coords(gene, meth_info, bin_num):
     gene_size = gene['end'] - gene['start']
     bin_size = gene_size//bin_num
     bin_size = bin_size if bin_size > 0 else 1
-    #if gene['strand'] == meth_info['strand']:
-    #    if (meth_info['coord'] > gene['start'])& \
-    #       (meth_info['coord'] < gene['end']):
     if meth_info['strand'] == '+':
         nth_bin = (meth_info['coord'] - gene['start'])//bin_size  #0 based index
-        # so no need to plus 1
-        #return nth_bin if nth_bin < BIN_NUM else BIN_NUM-1
+                                                                  #so no need to plus 1
     
     else:
         nth_bin = (gene['end'] - meth_info['coord'])//bin_size - 1
@@ -61,24 +55,16 @@ def bin_worker(gtf_file, coord_file, bin_num):
                     score_list.append([])
                 for each_coord in meth:
                     coord = parse_coord_to_dict(each_coord)
-                    #print(coord['strand'], coord['coord'], gene['start'], gene['end'])
-                    if not coord['score']: #this includes score is 0 and None
+                    if coord['score'] == None: #this includes score is 0 and None
                                            #0 and None are all treated as 0 in
                                            #the end
                         continue
                     if coord['strand'] == gene['strand']:
                         if coord['coord'] < gene['start']: continue
                         if coord['coord'] > gene['end']: break
-                        else:
-                            nth_bin = bin_coords(gene, coord, bin_num)
-                            score_list[nth_bin].append(coord['score'])
-                    else:
-                        continue #this is when strands of coord
-                             # and gene are not match
-                #if filled_bin:
+                        nth_bin = bin_coords(gene, coord, bin_num)
+                        score_list[nth_bin].append(coord['score'])
                 yield (gene['gene_id'], score_list)
-                #meta_collector[gene['gene_id']] = score_list
-        #return meta_collector
 def calc_ave_score(bin_dict):
     for gene_id, bin_list in bin_dict:
         ave_score_list = []
@@ -94,27 +80,14 @@ def main():
     args.add_argument('-g', '--gtf')
     args.add_argument('-c', '--coord')
     args.add_argument('-b', '--bin_num', type=int)
+    args.add_argument('-o', '--output')
     parser = args.parse_args()
     bin_dict = bin_worker(parser.gtf, parser.coord, parser.bin_num)
     score_tuple = calc_ave_score(bin_dict)
     df = pd.DataFrame({
         gene_id: score_list for gene_id, score_list in score_tuple
         })
-    df.to_csv('example/output.txt', header=True, sep='\t')
-    #print(pd.DataFrame(ave_score_list))
-    #bins_generator = bin_worker(gtf_file, coord_filek bin_num)
-    #            if nth_bin:
-    #            #    print(nth_bin, coord['strand'], coord['coord'], gene['start'], gene['end'])
-    #                score_list[nth_bin].append(coord['score'])
-    #        new_list = []
-    #        for each_bin in score_list:
-    #            try:
-    #                new_list.append(stats.mean(each_bin))
-    #            except (stats.StatisticsError, TypeError):
-    #                new_list.append(None)
-    #        meta_collector[gene['gene_id']] = new_list
-    #df = pd.DataFrame(meta_collector, columns=meta_collector.keys())
-    #print(df.dropna(axis=1, how='all'))
+    df.to_csv(parser.output, header=True, sep='\t')
 if __name__ == '__main__': main()
 
 
